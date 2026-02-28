@@ -1,0 +1,11 @@
+.spinner-border.lg {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.3rem;
+}
+
+.spinner-grow.lg {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.3rem;
+}

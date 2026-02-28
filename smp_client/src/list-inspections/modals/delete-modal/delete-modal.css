@@ -1,0 +1,12 @@
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.text-muted {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}

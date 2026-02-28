@@ -1,0 +1,17 @@
+@if (isOpen) {
+  <div class="dialog-overlay" (click)="onOverlayClick($event)">
+    <div class="dialog" [class]="'dialog-' + size">
+      <div class="dialog-header">
+        <h3 class="dialog-title">{{ title }}</h3>
+        @if (showClose) {
+          <button class="dialog-close" (click)="closeDialog()" aria-label="Закрыть">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        }
+      </div>
+      <div class="dialog-body">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+}

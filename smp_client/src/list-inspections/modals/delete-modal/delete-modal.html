@@ -1,0 +1,9 @@
+<dialog-ui #deleteDialog [title]="'Удаление проверки'">
+  @if (modalData) {
+    <p class="text-muted">Вы хотите удалить СМП {{ modalData.data.smpName }} ?</p>
+  }
+  <div class="modal-actions">
+    <button-ui type="button" (clicked)="close()">Отмена</button-ui>
+    <button-ui type="button" (clicked)="confirm()" [loading]="loading">Удалить</button-ui>
+  </div>
+</dialog-ui>

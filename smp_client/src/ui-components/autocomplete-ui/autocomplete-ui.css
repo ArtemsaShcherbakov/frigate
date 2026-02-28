@@ -1,0 +1,148 @@
+:host {
+  display: block;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  width: 100%;
+}
+
+.autocomplete-wrapper {
+  width: 100%;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+/* Контейнер */
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Поле ввода */
+.form-control {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #1f2937;
+  background-color: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-control:hover {
+  border-color: #9ca3af;
+  background-color: #fafafa;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #6366f1;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+/* Размеры */
+.form-control-sm {
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  font-size: 0.875rem;
+  border-radius: 10px;
+  min-height: 36px;
+}
+
+.form-control-lg {
+  padding: 1rem 3rem 1rem 3rem;
+  font-size: 1.125rem;
+  border-radius: 14px;
+  min-height: 52px;
+}
+
+/* Кнопка очистки */
+.clear-button {
+  position: absolute;
+  right: 2rem;
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  color: #9ca3af;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+/* Выпадающий список */
+.autocomplete-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: slideDown 0.2s ease;
+}
+
+.autocomplete-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #1f2937;
+}
+
+.autocomplete-item:hover {
+  background-color: #f3f4f6;
+}
+
+/* Пустое состояние */
+.autocomplete-dropdown.empty {
+  padding: 1rem;
+  text-align: center;
+  color: #9ca3af;
+}
+
+/* Анимации */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

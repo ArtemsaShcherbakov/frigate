@@ -1,0 +1,16 @@
+<div class="text-center p-4">
+  <div
+    class="spinner-border"
+    [class.text-primary]="color === 'primary'"
+    [class.text-secondary]="color === 'secondary'"
+    [class.text-success]="color === 'success'"
+    [class.text-danger]="color === 'danger'"
+    [class.spinner-border-sm]="size === 'sm'"
+    [style.width]="size === 'lg' ? '3rem' : ''"
+    [style.height]="size === 'lg' ? '3rem' : ''"
+    role="status"
+  ></div>
+  @if (text) {
+    <div class="mt-2 text-secondary">{{ text }}</div>
+  }
+</div>

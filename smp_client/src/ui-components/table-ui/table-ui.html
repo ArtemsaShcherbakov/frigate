@@ -1,0 +1,171 @@
+<div class="container-fluid p-0">
+  @if (title) {
+    <div class="d-flex align-items-center gap-3 mb-3">
+      <h2 class="h4 mb-0">{{ title }}</h2>
+      <button
+        class="btn btn-primary btn-sm rounded-circle d-flex align-items-center justify-content-center"
+        (click)="onAddModal($event)"
+        title="Добавить"
+      >
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </div>
+  }
+
+  <!-- Таблица -->
+  <div class="table-responsive">
+    @if (data.length === 0) {
+      <div class="text-center py-5 text-secondary">
+        <i class="bi bi-inbox" style="font-size: 3rem"></i>
+        <p class="mt-2">{{ emptyMessage }}</p>
+      </div>
+    } @else {
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <!-- Колонка с номером строки -->
+            <th class="fw-semibold" style="width: 60px">№</th>
+
+            @for (column of columns; track column.key) {
+              <th [style.width]="column.width" class="fw-semibold">
+                {{ column.label }}
+              </th>
+            }
+            @if (showActions) {
+              <th class="fw-semibold text-end">Действия</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of data; let i = $index; track trackByFn(i, row)) {
+            <tr class="cursor-pointer" (dblclick)="onRowDoubleClick(row)" (click)="onRowClick(row)">
+              <!-- Номер строки (с учетом пагинации) -->
+              <td class="text-secondary">{{ getRowNumber(i) }}</td>
+
+              <!-- Ячейки с данными -->
+              @for (column of columns; track column.key) {
+                <td>{{ row[column.key] }}</td>
+              }
+
+              <!-- Ячейка с действиями -->
+              @if (showActions) {
+                <td class="text-end">
+                  <div class="btn-group btn-group-sm" role="group">
+                    @for (action of actions; track action.type) {
+                      @if (action.type === 'edit') {
+                        <button
+                          class="btn btn-outline-primary"
+                          (click)="onEdit(row, $event)"
+                          [attr.title]="action.label"
+                        >
+                          <i [class]="'bi ' + (action.icon || 'bi-pencil')"></i>
+                        </button>
+                      }
+                      @if (action.type === 'delete') {
+                        <button
+                          class="btn btn-outline-danger"
+                          (click)="onDelete(row, $event)"
+                          [attr.title]="action.label"
+                        >
+                          <i [class]="'bi ' + (action.icon || 'bi-trash')"></i>
+                        </button>
+                      }
+                    }
+                  </div>
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+
+  <!-- Пагинация -->
+  @if (showPagination()) {
+    <div
+      class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 mt-3 pt-3 border-top"
+    >
+      <!-- Информация о записях -->
+      <div class="text-secondary small">
+        Показано {{ pagination.from }} - {{ pagination.to }} из {{ pagination.total }} записей
+      </div>
+
+      <!-- Элементы управления пагинацией -->
+      <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
+        <!-- Выбор количества записей -->
+        <select
+          class="form-select form-select-sm w-auto"
+          (change)="onChangePageSize($any($event.target).value)"
+        >
+          @for (size of pageSizeOptions; track size) {
+            <option [value]="size" [selected]="pagination.perPage === size">
+              {{ size }} / стр
+            </option>
+          }
+        </select>
+        <!-- Кнопки пагинации -->
+        <div class="btn-group btn-group-sm" role="group">
+          <button
+            class="btn btn-outline-secondary"
+            (click)="onFirstPage()"
+            [disabled]="pagination.currentPage === 1"
+            title="Первая страница"
+          >
+            <i class="bi bi-chevron-double-left"></i>
+          </button>
+
+          <button
+            class="btn btn-outline-secondary"
+            (click)="onPrevPage()"
+            [disabled]="pagination.currentPage === 1"
+            title="Предыдущая страница"
+          >
+            <i class="bi bi-chevron-left"></i>
+          </button>
+
+          <!-- Номера страниц (скрываем на мобильных) -->
+          <div class="btn-group btn-group-sm d-none d-md-flex" role="group">
+            @for (page of getPageNumbers(); track page) {
+              @if (page === '...') {
+                <span class="btn btn-outline-secondary disabled">...</span>
+              } @else {
+                <button
+                  class="btn"
+                  [class.btn-primary]="pagination.currentPage === page"
+                  [class.btn-outline-secondary]="pagination.currentPage !== page"
+                  (click)="onPageChange(+page)"
+                >
+                  {{ page }}
+                </button>
+              }
+            }
+          </div>
+
+          <!-- Текущая страница на мобильных -->
+          <span class="btn btn-outline-secondary d-md-none">
+            {{ pagination.currentPage }} / {{ pagination.totalPages }}
+          </span>
+
+          <button
+            class="btn btn-outline-secondary"
+            (click)="onNextPage()"
+            [disabled]="pagination.currentPage === pagination.totalPages"
+            title="Следующая страница"
+          >
+            <i class="bi bi-chevron-right"></i>
+          </button>
+
+          <button
+            class="btn btn-outline-secondary"
+            (click)="onLastPage()"
+            [disabled]="pagination.currentPage === pagination.totalPages"
+            title="Последняя страница"
+          >
+            <i class="bi bi-chevron-double-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

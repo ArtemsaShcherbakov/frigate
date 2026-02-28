@@ -1,0 +1,21 @@
+@if (label) {
+  <label [for]="id" class="form-label fw-medium mb-2">
+    {{ label }}
+  </label>
+}
+<div class="position-relative">
+  <input
+    [id]="id"
+    [type]="type"
+    [class]="inputClass"
+    [placeholder]="placeholder"
+    [value]="displayValue"
+    [disabled]="disabled"
+    (input)="onInput($event)"
+    (blur)="onBlur($event)"
+    (focus)="onFocus($event)"
+  />
+</div>
+@if (hasError) {
+  <div class="invalid-feedback d-block mt-2">{{ errorMessage }}</div>
+}

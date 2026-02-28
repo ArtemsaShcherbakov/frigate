@@ -1,0 +1,51 @@
+<dialog-ui #dialog [title]="modalData.title" (overlayClick)="onCloseOnOverlayClick()">
+  <autocomplete-ui
+    [(ngModel)]="inspection.smpId"
+    label="Субъект малого предпринимательства"
+    placeholder="Начните вводить название СМП..."
+    [items]="smpItems()"
+    (changeInput)="onChangeInput($event)"
+    displayField="nameSmp"
+    valueField="id"
+    errorMessage="Выберите СМП"
+    hint="Введите минимум 2 символа для поиска"
+  >
+  </autocomplete-ui>
+
+  <input-ui
+    [(ngModel)]="inspection.plannedStartDate"
+    label="Дата начала"
+    size="sm"
+    type="date"
+    placeholder="Дата начала"
+  />
+  <input-ui
+    [(ngModel)]="inspection.plannedEndDate"
+    label="Дата окончания"
+    size="sm"
+    type="date"
+    placeholder="Дата окончания"
+  />
+
+  <selector-ui
+    label="Контролирующий орган"
+    [(ngModel)]="inspection.authorityId"
+    [options]="controlAuthorities"
+    placeholder="Выберите контролирующий орган"
+    (valueChange)="onChangedSelect($event)"
+  >
+  </selector-ui>
+  <input-ui
+    [(ngModel)]="inspection.plannedDuration"
+    label="Плановая длительность проверки"
+    size="sm"
+    type="number"
+  />
+  <p class="error">{{ errorValidationMessage }}</p>
+  <div class="modal-actions">
+    <button-ui type="button" (clicked)="close()">Отмена</button-ui>
+    <button-ui type="button" (clicked)="createInspection()" [loading]="loading">{{
+      modalData.primaryButton
+    }}</button-ui>
+  </div>
+</dialog-ui>

@@ -1,0 +1,42 @@
+<section class="inspections">
+  <div class="inspections-wrapper">
+    <div class="inspections-wrapper-search">
+      <autocomplete-ui
+        label="Субъект малого предпринимательства"
+        placeholder="Начните вводить название СМП..."
+        [items]="smpItems"
+        [value]="selectedSmpId"
+        (valueChange)="onSmpChange($event)"
+        (itemSelected)="onSmpSelected($event)"
+        (changeInput)="onChangeInput($event)"
+        displayField="name"
+        valueField="id"
+      >
+      </autocomplete-ui>
+    </div>
+    <section>
+      @if (loading()) {
+        <loader-ui size="lg" text="Пожалуйста, подождите..."></loader-ui>
+      } @else {
+        <table-ui
+          [title]="'Перечень плановых проверок'"
+          [columns]="columns"
+          [data]="inspections()"
+          [actions]="actions"
+          [pagination]="pagination()"
+          (rowDoubleClick)="onRowDoubleClick($event)"
+          (addModal)="onAddModal($event)"
+          (edit)="onEdit($event)"
+          (delete)="onDelete($event)"
+          (pageChange)="onPageChange($event)"
+        >
+        </table-ui>
+      }
+    </section>
+    <edit-or-add-modal
+      (addInspection)="addInspection($event)"
+      (editInspection)="editInspection($event)"
+    ></edit-or-add-modal>
+    <delete-modal (deleteInspection)="deleteInspection($event)"></delete-modal>
+  </div>
+</section>

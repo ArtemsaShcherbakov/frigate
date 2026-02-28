@@ -1,0 +1,18 @@
+:host {
+  display: inline-block;
+}
+
+@media (max-width: 576px) {
+  .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .btn:not(.w-100) {
+    width: 100%;
+  }
+}
+
+.spinner-border {
+  vertical-align: middle;
+}

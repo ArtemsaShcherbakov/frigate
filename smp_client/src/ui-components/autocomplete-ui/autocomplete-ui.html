@@ -1,0 +1,49 @@
+<div class="autocomplete-wrapper">
+  <!-- Лейбл -->
+  @if (label) {
+    <label class="form-label">
+      {{ label }}
+    </label>
+  }
+
+  <!-- Контейнер -->
+  <div class="autocomplete-container" [class.is-open]="isOpen()">
+    <!-- Поле ввода -->
+    <div class="input-container">
+      <input
+        type="text"
+        [ngClass]="inputClasses()"
+        [placeholder]="placeholder"
+        [value]="searchText()"
+        [disabled]="disabled"
+        (input)="onInput($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        autocomplete="off"
+      />
+
+      <!-- Кнопка очистки -->
+      @if (searchText() && !disabled) {
+        <button class="clear-button" (click)="clearSelection($event)" type="button">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      }
+    </div>
+
+    <!-- Выпадающий список -->
+    @if (showDropdown()) {
+      <div class="autocomplete-dropdown">
+        @for (item of filteredItems(); track item.id) {
+          <div class="autocomplete-item" (click)="selectItem(item)">
+            {{ item[displayField] }}
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Пустой результат -->
+    @if (showEmptyMessage()) {
+      <div class="autocomplete-dropdown empty">Ничего не найдено</div>
+    }
+  </div>
+</div>

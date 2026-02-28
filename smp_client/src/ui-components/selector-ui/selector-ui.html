@@ -1,0 +1,27 @@
+<div class="selector-wrapper">
+  @if (label) {
+    <label class="form-label">
+      {{ label }}
+    </label>
+  }
+  <div class="select-container">
+    <select
+      [class]="selectClasses()"
+      [value]="value"
+      [disabled]="disabled"
+      (change)="onSelectChange($event)"
+      (blur)="onBlur()"
+      (focus)="onFocus()"
+    >
+      <option value="" disabled selected>{{ placeholder }}</option>
+      @for (option of options; track option.value) {
+        <option [value]="option.value" [disabled]="option.disabled">
+          {{ option.label }}
+        </option>
+      }
+    </select>
+  </div>
+  @if (hasError()) {
+    <div class="invalid-feedback">{{ errorMessage }}</div>
+  }
+</div>
